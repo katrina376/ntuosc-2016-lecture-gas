@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form id="datForm" enctype="multipart/form-data" id="declareForm" onsubmit="handleFormSubmit(this)">
+      <!-- Do it yourself -->
+    </form>
+    <div id="datUpdate"></div>
+  </body>
+
+  <script>
+    var $ = function (s) {
+      return document.querySelector(s);
+    }
+    var $$ = function (s) {
+      return document.querySelectorAll(s);
+    }
+
+    // Prevent forms from submitting.
+    function preventFormSubmit() {
+      var forms = $$('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function(ev) {
+          ev.preventDefault();
+        });
+      }
+    }
+
+    window.addEventListener('load', preventFormSubmit);
+
+    // Update spreadsheet and upload files
+    // Do it yourself!
+  </script>
+</html>
