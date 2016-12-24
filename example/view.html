@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form id="datForm" enctype="multipart/form-data" id="declareForm" onsubmit="handleFormSubmit(this)">
+      <input name="Name" type="text" placeholder="Name" required/>
+      <input name="Email" type="email" placeholder="Email" required/>
+      <input name="Photo" type="file" placeholder="Photo" required/>
+      <input name="doSubmit" type="submit" value="送出"/>
+    </form>
+    <div id="datUpdate"></div>
+  </body>
+
+  <script>
+    var $ = function (s) {
+      return document.querySelector(s);
+    }
+    var $$ = function (s) {
+      return document.querySelectorAll(s);
+    }
+
+    // Prevent forms from submitting.
+    function preventFormSubmit() {
+      var forms = $$('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function(ev) {
+          ev.preventDefault();
+        });
+      }
+    }
+
+    window.addEventListener('load', preventFormSubmit);
+
+    // Update spreadsheet and upload files
+    function handleFormSubmit(f) {
+      google.script.run.withFailureHandler(onFailure)
+                       .withSuccessHandler(onSuccess)
+                       .processForm(f);
+    }
+
+    function onSuccess(arc) {
+      $('#datForm').style.display = "none";
+      $('#datUpdate').innerHTML += "上傳成功 <3";
+    }
+
+    function onFailure(error) {
+      alert("onFailure: " + error);
+    }
+  </script>
+</html>
